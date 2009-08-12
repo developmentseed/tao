@@ -1,0 +1,119 @@
+body.tao {
+  color:#666;
+  background:#fff;
+  }
+
+a {
+  color:#369;
+  text-decoration:none;
+  }
+
+/**
+ * Grouped hover states ===============================================
+ */
+#page ul.menu a:hover {
+  background:#48a;
+  color:#fff;
+  }
+
+/**
+ * Branding ===========================================================
+ */
+#branding h1.site-name {
+  float:left;
+  font-size:18px;
+  }
+
+#branding form { float:right; }
+#branding form label { display:none; }
+
+/**
+ * Navigation =========================================================
+ */
+ul.links li a {
+  font-weight:300;
+  padding:5px 15px;
+  margin:0px 5px 0px 0px;
+
+  -moz-border-radius:3px;
+  }
+
+ul.links li a:hover {
+  background:#999;
+  color:#fff;
+  }
+
+ul.links li.active a,
+ul.links li.active a.active {
+  background:#444;
+  color:#fff;
+  }
+
+/**
+ * Page layout ========================================================
+ */
+.limiter {
+  border-bottom:1px solid #eee;
+  width:940px;
+  padding:10px 0px 9px;
+  }
+
+#left,
+#right,
+#main {
+  width:180px;
+  float:left;
+  }
+
+#left { padding-right:10px; }
+#right { padding-left:10px; }
+
+body.no-sidebars #main { width:940px; }
+body.one-sidebar #main { width:750px; }
+body.both-sidebars #main { width:660px; }
+
+/**
+ * Tables =============================================================
+ */
+td,
+table th {
+  padding:4px 0px 5px;
+  border-bottom:1px solid #ccc;
+  }
+
+/**
+ * Menus ==============================================================
+ */
+ul.menu a {
+  display:block;
+  line-height:20px;
+  padding:4px 5px 5px;
+  border-bottom:1px solid #ccc;
+  }
+
+ul.menu a.active {
+  background:#f8f8f8;
+  color:#333;
+  }
+
+/**
+ * We can safely stop at 8 levels of nesting, as the menu system does
+ * not allow depths of greather than 8.
+ */
+ul.menu li li a { padding-left:15px; }
+ul.menu li li li a { padding-left:25px; }
+ul.menu li li li li a { padding-left:35px; }
+ul.menu li li li li li a { padding-left:45px; }
+ul.menu li li li li li li a { padding-left:55px; }
+ul.menu li li li li li li li a { padding-left:65px; }
+ul.menu li li li li li li li li a { padding-left:75px; }
+
+/**
+ * Blocks =============================================================
+ */
+h2.block-title {
+  font-size:15px;
+  padding:4px 5px 5px;
+  border-bottom:1px solid #ccc;
+  background:#f8f8f8;
+  }

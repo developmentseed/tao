@@ -1,0 +1,21 @@
+; $Id$
+name = "Tao"
+description = "Base theme for ambiguous, complex, and difficult to understand themers. Provides aggressive/offensive resets and overrides."
+version = "1.2"
+core = "6.x"
+engine = "phptemplate"
+
+stylesheets[screen][] = "reset.css"
+stylesheets[screen][] = "base.css"
+stylesheets[screen][] = "style.css"
+stylesheets[print][] = "reset.css"
+stylesheets[print][] = "base.css"
+stylesheets[print][] = "print.css"
+
+scripts[] = "js/tao.js"
+
+regions[left] = "Left sidebar"
+regions[right] = "Right sidebar"
+regions[content] = "Content"
+regions[header] = "Header"
+regions[footer] = "Footer"
