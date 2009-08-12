@@ -2,6 +2,7 @@
 name = "Tao"
 description = "Base theme for ambiguous, complex, and difficult to understand themers. Provides aggressive/offensive resets and overrides."
 version = "1.2"
+project = "tao"
 core = "6.x"
 engine = "phptemplate"
 
