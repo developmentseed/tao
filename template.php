@@ -342,6 +342,14 @@ function tao_file($element) {
  * block region handling if no region-specific overrides are found.
  */
 function tao_blocks($region) {
+  // Bail if this region has been disabled through context.
+  if (module_exists('context')) {
+    $disabled_regions = context_active_values('theme_regiontoggle');
+    if (!empty($disabled_regions) && in_array($region, $disabled_regions)) {
+      return '';
+    }
+  }
+
   static $list;
 
   $output = '';
