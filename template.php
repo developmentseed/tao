@@ -350,26 +350,23 @@ function tao_blocks($region) {
     }
   }
 
-  static $list;
-
   $output = '';
-  $list = module_exists('context') && function_exists('context_block_list') ? context_block_list($region) : block_list($region);
 
-  // Allow theme functions some additional control over regions
-  if ($list) {
+  $list = module_exists('context') && function_exists('context_block_list') ? context_block_list($region) : block_list($region);
+  if (!empty($list)) {
+    // Allow theme functions some additional control over regions
     $registry = theme_get_registry();
     if (isset($registry['blocks_'. $region])) {
-      $output .= theme('blocks_'. $region, $list);
+      return theme('blocks_'. $region, $list);
     }
-    else {
-      foreach ($list as $key => $block) {
-        $output .= theme("block", $block);
-      }
-      $output .= drupal_get_content($region);
+
+    // Otherwise, flow through regular stack
+    foreach ($list as $key => $block) {
+      $output .= theme("block", $block);
     }
-    return $output;
   }
-  return '';
+
+  return $output . drupal_get_content($region);
 }
 
 /**
