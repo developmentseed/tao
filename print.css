@@ -14,7 +14,6 @@ a {
 div.comment-links,
 div.node-links,
 ul.links,
-div.dsadmin,
 div.page-links,
 div.box,
 div.picture,
@@ -164,14 +163,6 @@ table td {
   font-size:9pt;
   padding: 5pt 10pt;
   border:1pt solid #ccc;
-  }
-
-table.comparison tr,
-table.comparison td,
-table.comparison th {
-  text-align:left;
-  border-left: 0px;
-  border-right: 0px;
   }
 
 /**

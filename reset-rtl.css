@@ -140,6 +140,5 @@ ul.secondary a.active,
 html.js fieldset.collapsible legend a,
 html.js fieldset.collapsed legend a,
 .resizable-textarea {
-  text-align:right;
   direction:rtl;
   }
