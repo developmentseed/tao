@@ -1,6 +1,6 @@
 ; $Id$
 name = "Tao"
-description = "Base theme for ambiguous, complex, and difficult to understand themers. Provides aggressive/offensive resets and overrides."
+description = "Tao is a base theme that is all about going with the flow. It takes care of key reset and utility tasks so that sub-themes can get on with their job."
 version = "6.x-1.3"
 core = "6.x"
 engine = "phptemplate"
