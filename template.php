@@ -4,19 +4,29 @@
  * Implementation of hook_theme().
  */
 function tao_theme() {
-  return array(
-    'fieldset' => array(
-      'arguments' => array('element' => array()),
-      'template' => 'object',
-      'path' => drupal_get_path('theme', 'tao') .'/templates',
-    ),
-    'print_header' => array(
-      'arguments' => array(),
-      'template' => 'print-header',
-      'path' => drupal_get_path('theme', 'tao') .'/templates',
-    ),
-    'pager_list' => array(),
+  $items = array();
+
+  // Consolidate a variety of theme functions under a single template type.
+  $items['block'] =
+  $items['box'] =
+  $items['comment'] =
+  $items['fieldset'] =
+  $items['node'] = array(
+    'template' => 'object',
+    'path' => drupal_get_path('theme', 'tao') .'/templates',
   );
+  $items['fieldset']['arguments'] = array('element' => array());
+
+  // Print friendly page headers.
+  $items['print_header'] = array(
+    'arguments' => array(),
+    'template' => 'print-header',
+    'path' => drupal_get_path('theme', 'tao') .'/templates',
+  );
+
+  $items['pager_list'] = array();
+
+  return $items;
 }
 
 /**
