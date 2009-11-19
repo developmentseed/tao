@@ -81,7 +81,6 @@ div.limiter { max-width:50em; }
  */
 div.print-header {
   font-family: Arial, sans-serif;
-  page-break-before:always;
   clear:both;
   border-bottom:1pt solid #ccc;
   padding: 0pt 0pt 10pt;
@@ -89,14 +88,20 @@ div.print-header {
   line-height:20pt;
   }
 
-  div.print-header div.count {
-    padding:0em 1em 0em 0em;
-    float:right;
-    font-weight:bold;
-    }
-
   div.print-header img.logo { display:block; height:20pt; }
-  div.print-header-first { page-break-before:auto; }
+
+/**
+ * FOOTER =============================================================
+ */
+#footer {
+  font-size:7pt;
+  font-family: Arial, sans-serif;
+  clear:both;
+  border-top:1pt solid #ccc;
+  padding: 10pt 0pt 0pt;
+  margin: 10pt 0pt 0pt;
+  line-height:20pt;
+  }
 
 /**
  * NODE ===============================================================
@@ -170,18 +175,15 @@ table td {
  * when previewing before print.
  */
 @media screen {
-  body { padding: .25in 1in; }
-
-  div.print-header {
-    border-top:1pt dashed #ccc;
-    padding-top:.1in;
+  body {
+    background:#f8f8f8;
+    padding:100px 0px;
     }
 
-  div.print-header-first {
-    border-top:none;
-    padding-top:0in;
-    page-break-before:auto;
+  div.limiter {
+    background:#fff;
+    padding:.5in;
+    width:7in;
+    border:5pt solid #eee;
     }
-
-  div.node { padding: 0in 0in .5in; }
 }

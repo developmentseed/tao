@@ -8,23 +8,15 @@
 </head>
 
 <body <?php print drupal_attributes($attr) ?>>
-
-  <div class='root'>
-
-  <div id="page"><div class='limiter clear-block'>
-    <div id="main" class='clear-block'>
-      <div id='content' class='clear-block'>
-        <?php print $content ?>
-      </div>
+  <div class='limiter clear-block'>
+    <div id='content' class='clear-block'>
+      <?php print $print_header ?>
+      <?php print $content ?>
     </div>
-  </div></div>
-
-  <div id="footer"><div class='limiter clear-block'>
-    <?php if($footer_message) print $footer_message ?>
-  </div></div>
-
+    <?php if ($footer_message): ?>
+      <div id='footer' class='clear-block'><?php print $footer_message ?></div>
+    <?php endif; ?>
   </div>
-
 </body>
 
 </html>

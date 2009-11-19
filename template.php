@@ -138,6 +138,9 @@ function tao_preprocess_page(&$vars) {
 
     // Use print template
     $vars['template_file'] = 'print-page';
+
+    // Suppress devel output
+    $GLOBALS['devel_shutdown'] = FALSE;
   }
   // Get minimalized CSS
   else {
@@ -197,7 +200,6 @@ function tao_preprocess_node(&$vars) {
 
   // Add print customizations
   if (isset($_GET['print'])) {
-    $vars['pre_object'] = theme('print_header');
     $vars['post_object'] = tao_print_book_children($vars['node']);
   }
 }
@@ -243,14 +245,9 @@ function tao_preprocess_fieldset(&$vars) {
  * Preprocessor for theme_print_header().
  */
 function tao_preprocess_print_header(&$vars) {
-  static $count;
-  $count = !isset($count) ? 1 : $count;
-  global $base_url;
   $vars = array(
     'base_path' => base_path(),
     'theme_path' => base_path() .'/'. path_to_theme(),
-    'count' => $count,
-    'first' => ($count == 1) ? true : false,
     'site_name' => variable_get('site_name', 'Drupal'),
   );
   $count ++;
