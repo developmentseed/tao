@@ -16,6 +16,7 @@ function tao_theme() {
     'path' => drupal_get_path('theme', 'tao') .'/templates',
   );
   $items['fieldset']['arguments'] = array('element' => array());
+  $items['node']['template'] = 'node';
 
   // Print friendly page headers.
   $items['print_header'] = array(
@@ -169,7 +170,7 @@ function tao_preprocess_block(&$vars) {
   $vars['attr'] = $attr;
 
   $vars['hook'] = 'block';
-  $vars['title'] = $vars['block']->subject;
+  $vars['title'] = filter_xss_admin($vars['block']->subject);
   $vars['content'] = $vars['block']->content;
   $vars['is_prose'] = ($vars['block']->module == 'block') ? TRUE : FALSE;
 }
@@ -195,7 +196,6 @@ function tao_preprocess_node(&$vars) {
   $vars['attr'] = $attr;
 
   $vars['hook'] = 'node';
-  $vars['title'] = l($vars['title'], "node/{$vars['node']->nid}", array('html' => TRUE));
   $vars['is_prose'] = TRUE;
 
   // Add print customizations
