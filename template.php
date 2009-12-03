@@ -226,8 +226,8 @@ function tao_preprocess_fieldset(&$vars) {
   $attr = isset($element['#attributes']) ? $element['#attributes'] : array();
   $attr['class'] = !empty($attr['class']) ? $attr['class'] : '';
   $attr['class'] .= ' fieldset';
-  $attr['class'] .= !empty($element['#collapsible']) || !empty($element['#collapsed']) ? ' collapsible' : '';
-  $attr['class'] .= !empty($element['#collapsed']) ? ' collapsed' : '';
+  $attr['class'] .= !empty($element['#collapsible']) ? ' collapsible' : '';
+  $attr['class'] .= !empty($element['#collapsible']) && !empty($element['#collapsed']) ? ' collapsed' : '';
   $vars['attr'] = $attr;
 
   $description = !empty($element['#description']) ? "<div class='description'>{$element['#description']}</div>" : '';
@@ -235,7 +235,7 @@ function tao_preprocess_fieldset(&$vars) {
   $value = !empty($element['#value']) ? $element['#value'] : '';
   $vars['content'] = $description . $children . $value;
   $vars['title'] = !empty($element['#title']) ? $element['#title'] : '';
-  if (!empty($element['#collapsible']) || !empty($element['#collapsed'])) {
+  if (!empty($element['#collapsible'])) {
     $vars['title'] = l($vars['title'], $_GET['q'], array('fragment' => 'fieldset'));
   }
   $vars['hook'] = 'fieldset';
