@@ -34,22 +34,22 @@ function tao_theme() {
  * Strips CSS files from a Drupal CSS array whose filenames start with
  * prefixes provided in the $match argument.
  */
-function tao_css_stripped($match = array('modules/'), $exceptions = NULL) {
+function tao_css_stripped($match = array('modules/*'), $exceptions = NULL) {
   // Set default exceptions
   if (!is_array($exceptions)) {
     $exceptions = array(
       'modules/system/system.css',
       'modules/update/update.css',
       'modules/openid/openid.css',
+      'modules/acquia/*',
     );
   }
   $css = drupal_add_css();
+  $match = implode("\n", $match);
+  $exceptions = implode("\n", $exceptions);
   foreach (array_keys($css['all']['module']) as $filename) {
-    foreach ($match as $prefix) {
-      if (strpos($filename, $prefix) === 0 && !in_array($filename, $exceptions)) {
-        unset($css['all']['module'][$filename]);
-        continue;
-      }
+    if (drupal_match_path($filename, $match) && !drupal_match_path($filename, $exceptions)) {
+      unset($css['all']['module'][$filename]);
     }
   }
 
