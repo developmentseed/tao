@@ -23,7 +23,6 @@
   <?php endif; ?>
 
   <div id='branding'><div class='limiter clear-block'>
-    <?php if ($logo) print $logo ?>
     <?php if ($site_name): ?><h1 class='site-name'><?php print $site_name ?></h1><?php endif; ?>
     <?php if ($search_box): ?><div class="block block-theme"><?php print $search_box ?></div><?php endif; ?>
   </div></div>

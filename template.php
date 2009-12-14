@@ -152,9 +152,8 @@ function tao_preprocess_page(&$vars) {
   $vars['tabs'] = theme('menu_local_tasks', 'primary');
   $vars['tabs2'] = theme('menu_local_tasks', 'secondary');
 
-  // Use the logo if it exists
-  $vars['logo'] = file_exists($vars['logo']) ? l(theme('image', $logo), '<front>', array('attributes' => array('class' => 'logo'), 'html' => TRUE)) : NULL;
-  $vars['site_name'] = empty($vars['logo']) ? l($vars['site_name'], '<front>') : NULL;
+  // Link site name to frontpage
+  $vars['site_name'] = l($vars['site_name'], '<front>');
 
   // Don't render the attributes yet so subthemes can alter them
   $vars['attr'] = $attr;
