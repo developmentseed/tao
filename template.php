@@ -396,6 +396,7 @@ function tao_pager($tags = array(), $limit = 10, $element = 0, $parameters = arr
   $links['pager-previous'] = theme('pager_previous', ($tags[1] ? $tags[1] : t('Prev')), $limit, $element, 1, $parameters);
   $links['pager-next'] = theme('pager_next', ($tags[3] ? $tags[3] : t('Next')), $limit, $element, 1, $parameters);
   $links['pager-last'] = theme('pager_last', ($tags[4] ? $tags[4] : t('Last')), $limit, $element, $parameters);
+  $links = array_filter($links);
   $pager_links = theme('links', $links, array('class' => 'links pager pager-links'));
 
   if ($pager_list) {
