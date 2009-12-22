@@ -163,13 +163,16 @@ function tao_preprocess_page(&$vars) {
  * Implementation of preprocess_block().
  */
 function tao_preprocess_block(&$vars) {
+  // Hide blocks with no content.
+  $vars['hide'] = empty($vars['block']->content);
+
   $attr = array();
   $attr['id'] = "block-{$vars['block']->module}-{$vars['block']->delta}";
   $attr['class'] = "block block-{$vars['block']->module}";
   $vars['attr'] = $attr;
 
   $vars['hook'] = 'block';
-  $vars['title'] = filter_xss_admin($vars['block']->subject);
+  $vars['title'] = !empty($vars['block']->subject) ? filter_xss_admin($vars['block']->subject) : '';
   $vars['content'] = $vars['block']->content;
   $vars['is_prose'] = ($vars['block']->module == 'block') ? TRUE : FALSE;
 }
