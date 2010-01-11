@@ -125,7 +125,7 @@ div.description {
   }
 
 div.collapsible h2.fieldset-title { cursor:pointer; }
-div.collapsed div.fieldset-content { display:none; }
+html.js div.collapsed div.fieldset-content { display:none; }
 
 /**
  * Views ==============================================================
