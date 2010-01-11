@@ -143,9 +143,10 @@ function tao_preprocess_page(&$vars) {
     // Suppress devel output
     $GLOBALS['devel_shutdown'] = FALSE;
   }
-  // Get minimalized CSS
+  // Get minimalized CSS. Add designkit styles back in if needed.
   else {
     $vars['styles'] = drupal_get_css(tao_css_stripped());
+    $vars['styles'] .= isset($vars['designkit']) ? $vars['designkit'] : '';
   }
 
   // Split primary and secondary local tasks
