@@ -72,12 +72,13 @@ ul.links li a { float:left; }
 .prose ol li,
 .prose ul li {
   display:list-item;
-  list-style:disc;
   margin:0px 0px 0px 30px;
   padding:0px;
   }
 
 .prose ol li { list-style:decimal; }
+
+.prose ul li { list-style:disc; }
 
 .prose img { display:block; }
 
