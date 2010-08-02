@@ -239,7 +239,7 @@ function tao_preprocess_fieldset(&$vars) {
   $vars['content'] = $description . $children . $value;
   $vars['title'] = !empty($element['#title']) ? $element['#title'] : '';
   if (!empty($element['#collapsible'])) {
-    $vars['title'] = l($vars['title'], $_GET['q'], array('fragment' => 'fieldset'));
+    $vars['title'] = l(filter_xss_admin($vars['title']), $_GET['q'], array('fragment' => 'fieldset', 'html' => TRUE));
   }
   $vars['hook'] = 'fieldset';
 }
