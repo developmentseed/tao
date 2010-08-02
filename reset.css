@@ -5,15 +5,11 @@
 
 html,
 body,
-
-/* Structures */
 div,
 span,
 applet,
 object,
 iframe,
-
-/* Text */
 h1,
 h2,
 h3,
@@ -51,16 +47,12 @@ b,
 u,
 i,
 center,
-
-/* Lists */
 dl,
 dt,
 dd,
 ol,
 ul,
 li,
-
-/* Forms */
 fieldset,
 form,
 input,
@@ -68,8 +60,6 @@ select,
 textarea,
 label,
 legend,
-
-/* Tables */
 table,
 caption,
 tbody,
@@ -77,70 +67,7 @@ tfoot,
 thead,
 tr,
 th,
-td,
-
-/* Drupal: system.css */
-tr.even,
-tr.odd,
-tr.drag,
-tbody,
-tbody th,
-thead th,
-.breadcrumb,
-.error,
-div.error,
-tr.error,
-.warning,
-div.warning,
-tr.warning,
-.ok,
-div.ok,
-tr.ok,
-.item-list .icon,
-.item-list .title,
-.item-list ul,
-.item-list ul li,
-ol.task-list li.active,
-.form-item,
-tr.odd .form-item,
-tr.even .form-item,
-tr.merge-down,
-tr.merge-up,
-.form-item .description,
-.form-item label,
-.form-item label.option,
-.form-checkboxes,
-.form-radios,
-.form-checkboxes .form-item,
-.form-radios .form-item,
-.marker,
-.form-required,
-.more-link,
-.more-help-link,
-.item-list .pager,
-.item-list .pager li,
-.pager-current,
-.tips,
-dl.multiselect dd.b,
-dl.multiselect dd.b .form-item,
-dl.multiselect dd.b select,
-dl.multiselect dd.a,
-dl.multiselect dd.a .form-item,
-dl.multiselect dt,
-dl.multiselect dd,
-dl.multiselect .form-item,
-ul.primary,
-ul.primary li,
-ul.primary li a,
-ul.primary li.active a,
-ul.primary li a:hover,
-ul.secondary,
-ul.secondary li,
-ul.secondary a,
-ul.secondary a.active,
-html.js fieldset.collapsible legend a,
-html.js fieldset.collapsed legend a,
-.resizable-textarea {
+td {
   margin:0px;
   padding:0px;
   border:0px;
@@ -153,17 +80,16 @@ html.js fieldset.collapsed legend a,
 
 ol,
 ul,
-.item-list ul,
-.item-list ul li {
-  list-style:none;
-  }
+ul,
+ul li { list-style:none; }
 
 blockquote,
 q { quotes:none; }
 
 blockquote:before,
 blockquote:after,
-q:before, q:after {
+q:before,
+q:after {
   content:'';
   content:none;
   }

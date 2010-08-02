@@ -31,6 +31,9 @@ function tao_theme() {
 }
 
 /**
+ * DEPRECATED. CSS exclusion is better handled with positive (yet omitted)
+ * entries in your .info file.
+ *
  * Strips CSS files from a Drupal CSS array whose filenames start with
  * prefixes provided in the $match argument.
  */
@@ -127,7 +130,7 @@ function tao_preprocess_page(&$vars) {
   // Replace screen/all stylesheets with print
   // We want a minimal print representation here for full control.
   if (isset($_GET['print'])) {
-    $css = tao_css_stripped();
+    $css = drupal_add_css();
     unset($css['all']);
     unset($css['screen']);
     $css['all'] = $css['print'];
@@ -144,11 +147,6 @@ function tao_preprocess_page(&$vars) {
 
     // Suppress devel output
     $GLOBALS['devel_shutdown'] = FALSE;
-  }
-  // Get minimalized CSS. Add designkit styles back in if needed.
-  else {
-    $vars['styles'] = drupal_get_css(tao_css_stripped());
-    $vars['styles'] .= isset($vars['designkit']) ? $vars['designkit'] : '';
   }
 
   // Split primary and secondary local tasks

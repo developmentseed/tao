@@ -8,8 +8,42 @@ regions[content] = "Content"
 regions[header] = "Header"
 regions[footer] = "Footer"
 scripts[] = "js/tao.js"
+
 stylesheets[screen][] = "reset.css"
+stylesheets[screen][] = "drupal.css"
 stylesheets[screen][] = "base.css"
 stylesheets[print][] = "reset.css"
 stylesheets[print][] = "base.css"
 stylesheets[print][] = "print.css"
+
+; Omit core stylesheets.
+; Note that several stylesheets are left included because of their non-invasive
+; or isolated nature:
+;
+;   color/color.css
+;   locale/locale.css
+;
+; Other functionally critical styles should be reimplemented in `drupal.css`
+; without styles that compromise the typographical grid or otherwise complicate
+; subtheming.
+
+stylesheets[all][] = "admin.css"
+stylesheets[all][] = "block.css"
+stylesheets[all][] = "book.css"
+stylesheets[all][] = "comment.css"
+stylesheets[all][] = "dblog.css"
+stylesheets[all][] = "defaults.css"
+stylesheets[all][] = "forum.css"
+stylesheets[all][] = "help.css"
+stylesheets[all][] = "maintenance.css"
+stylesheets[all][] = "node.css"
+stylesheets[all][] = "openid.css"
+stylesheets[all][] = "poll.css"
+stylesheets[all][] = "profile.css"
+stylesheets[all][] = "search.css"
+stylesheets[all][] = "system.css"
+stylesheets[all][] = "system-menus.css"
+stylesheets[all][] = "taxonomy.css"
+stylesheets[all][] = "tracker.css"
+stylesheets[all][] = "update.css"
+stylesheets[all][] = "user.css"
