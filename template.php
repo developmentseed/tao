@@ -39,6 +39,7 @@ function tao_css_stripped($match = array('modules/*'), $exceptions = NULL) {
   if (!is_array($exceptions)) {
     $exceptions = array(
       'modules/color/color.css',
+      'modules/locale/locale.css',
       'modules/system/system.css',
       'modules/update/update.css',
       'modules/openid/openid.css',
