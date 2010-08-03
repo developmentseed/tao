@@ -31,3 +31,12 @@ div.teaser-button-wrapper {
   margin-right:auto;
   margin-left:10px;
   }
+
+/**
+ * update/update.css ==================================================
+ */
+.update .version-status { float:left; }
+.update .version-status .icon {
+  padding-left:auto;
+  padding-right:10px;
+  }

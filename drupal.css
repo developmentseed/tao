@@ -280,10 +280,34 @@ html.js .js-hide { display:none; }
 #system-modules div.incompatible,
 #system-themes-form div.incompatible { font-weight:bold; }
 
-/*
-** Password strength indicator
-*/
+/**
+ * Password strength indicator
+ */
 span.password-strength,
 span.password-confirm { visibility:hidden; }
 
 div.password-description { max-width:500px; }
+
+/**
+ * update/update.css ==================================================
+ */
+.update .project,
+.update table.version-recommended-strong .version-title { font-weight:bold; }
+
+.update .version-status { float:right; }
+.update .version-status .icon { padding-left:10px; }
+.update .version-date { white-space:nowrap; }
+
+.update tr.error .version-recommended { background: #fdd; }
+.update tr.warning .version-recommended { background: #ffe; }
+
+.current-version,
+.new-version { direction: ltr; /* Note: version numbers should always be LTR. */ }
+
+.update tr.unknown { background: #ddd; }
+.update table.version-security .version-title { color: #910; }
+
+.update .security-error {
+  font-weight: bold;
+  color: #910;
+  }
