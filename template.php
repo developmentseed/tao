@@ -15,6 +15,7 @@ function tao_theme() {
     'template' => 'object',
     'path' => drupal_get_path('theme', 'tao') .'/templates',
   );
+  $items['fieldset']['template'] = 'fieldset';
   $items['fieldset']['arguments'] = array('element' => array());
   $items['node']['template'] = 'node';
 
@@ -229,6 +230,7 @@ function tao_preprocess_fieldset(&$vars) {
   $attr = isset($element['#attributes']) ? $element['#attributes'] : array();
   $attr['class'] = !empty($attr['class']) ? $attr['class'] : '';
   $attr['class'] .= ' fieldset';
+  $attr['class'] .= !empty($element['#title']) ? ' titled' : '';
   $attr['class'] .= !empty($element['#collapsible']) ? ' collapsible' : '';
   $attr['class'] .= !empty($element['#collapsible']) && !empty($element['#collapsed']) ? ' collapsed' : '';
   $vars['attr'] = $attr;
