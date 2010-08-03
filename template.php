@@ -7,17 +7,31 @@ function tao_theme() {
   $items = array();
 
   // Consolidate a variety of theme functions under a single template type.
-  $items['block'] =
-  $items['box'] =
-  $items['comment'] =
-  $items['fieldset'] =
-  $items['node'] = array(
+  $items['block'] = array(
+    'arguments' => array('block' => NULL),
     'template' => 'object',
     'path' => drupal_get_path('theme', 'tao') .'/templates',
   );
-  $items['fieldset']['template'] = 'fieldset';
-  $items['fieldset']['arguments'] = array('element' => array());
-  $items['node']['template'] = 'node';
+  $items['box'] = array(
+    'arguments' => array('title' => NULL, 'content' => NULL, 'region' => 'main'),
+    'template' => 'object',
+    'path' => drupal_get_path('theme', 'tao') .'/templates',
+  );
+  $items['comment'] = array(
+    'arguments' => array('comment' => NULL, 'node' => NULL, 'links' => array()),
+    'template' => 'object',
+    'path' => drupal_get_path('theme', 'tao') .'/templates',
+  );
+  $items['node'] = array(
+    'arguments' => array('node' => NULL, 'teaser' => FALSE, 'page' => FALSE),
+    'template' => 'node',
+    'path' => drupal_get_path('theme', 'tao') .'/templates',
+  );
+  $items['fieldset'] = array(
+    'arguments' => array('element' => array()),
+    'template' => 'fieldset',
+    'path' => drupal_get_path('theme', 'tao') .'/templates',
+  );
 
   // Print friendly page headers.
   $items['print_header'] = array(
