@@ -34,9 +34,10 @@ to expect:
 
 - `theme('fieldset')`
 
-  The `fieldset` element in core has been replaced by a `div.fieldset`. This is
-easier to style and offers more standard CSS support, especially in
-cross-browser situations.
+  The `fieldset` element in core has been retained but with additional markup
+for simpler theming. The `legend` element contains a sub-element `h2` that can
+be positioned properly across browsers and the main contents of the fieldset
+follow other object templates with a `.fieldset-content` div.
 
 - `theme('form_element')`
 
@@ -68,10 +69,14 @@ subtheme's node preprocessor:
 ### CSS resets & removal
 
 Tao implements an aggressive `reset.css` but also strips out the inclusion of
-many of the CSS files included in core. This includes all modules in `/modules`
-with the exception of `system`, `openid` and `update`. Tao does not remove any
-contrib CSS added from other module directories, e.g. `sites/all/modules` or
-`profiles/myprofile/modules`.
+many of the CSS files included in core with the exception of `colors.css` and
+`locale.css` (see `tao.info` for the specifics). Tao reimplements and
+consolidates Drupal core CSS styles in a way that will not affect a
+typographical or other strict grid in `drupal.css` that can be overridden by
+sub themes for even greater control.
+
+Tao does not remove any contrib CSS added from other module directories, e.g.
+`sites/all/modules` or `profiles/myprofile/modules`.
 
 **Note:** The main reason for the stripping of core CSS is to achieve consistent
 typography and grid layout. Many styles in Drupal core add inconsistent
@@ -101,6 +106,8 @@ overridden.
 - `reset.css` provides browser CSS style resets and core styling resets.
 Override this in your subtheme only if you need to add or omit certain reset
 styles.
+- drupal.css` reimplements core CSS styles that are functionally important
+without allowing any modifications to a typographical or layout grid.
 - `base.css` provides very basic structural, non-aesthetic styling for many
 elements. See inline comments for more information.
 - `print.css` is a default print stylesheet. Override this in your subtheme to
@@ -110,8 +117,8 @@ alter print styling entirely.
 ### Template unification
 
 All of the following theme functions go through the exact same template in Tao
-(with the exception of `node`, which goes through a slightly modified version
-for better compatibility with contrib modules):
+(with the exception of `node` and `fieldset` which go through slightly modified
+versions for better usability and compatibility with contrib modules):
 
 - `theme('block')`
 - `theme('box')`
