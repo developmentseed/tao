@@ -1,4 +1,18 @@
 /**
+ * block/block.css ====================================================
+ */
+#blocks td.region { font-weight:bold; }
+
+#blocks tr.region-message {
+  font-weight:normal;
+  color:#999;
+  }
+
+#blocks tr.region-populated {
+  display:none;
+  }
+
+/**
  * openid/openid.css ==================================================
  */
 div#edit-openid-identifier-wrapper { display:block; }
