@@ -311,3 +311,9 @@ div.password-description { max-width:500px; }
   font-weight: bold;
   color: #910;
   }
+
+/**
+ * user/user.css ======================================================
+ */
+#permissions td.module { font-weight: bold; }
+#permissions td.permission { padding-left:20px; }
