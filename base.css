@@ -124,8 +124,8 @@ div.description {
   font-size:11px;
   }
 
-div.collapsible h2.fieldset-title { cursor:pointer; }
-html.js div.collapsed div.fieldset-content { display:none; }
+fieldset.collapsible h2.fieldset-title { cursor:pointer; }
+html.js fieldset.collapsed div.fieldset-content { display:none; }
 
 /**
  * Views ==============================================================
