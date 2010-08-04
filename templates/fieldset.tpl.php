@@ -1,6 +1,6 @@
 <fieldset <?php if (!empty($attr)) print drupal_attributes($attr) ?>>
   <?php if (!empty($title)): ?>
-    <legend><h2 class='<?php print $hook ?>-title'><?php print $title ?></h2></legend>
+    <legend><span class='<?php print $hook ?>-title'><?php print $title ?></span></legend>
   <?php endif; ?>
   <?php if (!empty($content)): ?>
     <div class='<?php print $hook ?>-content clear-block <?php if (!empty($is_prose)) print 'prose' ?>'>
