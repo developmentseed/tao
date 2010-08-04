@@ -83,10 +83,10 @@ ul.links li a { float:left; }
 .prose img { display:block; }
 
 /* Excluding Drupal structures */
-.prose ul.links,
-.prose ul.links li,
-.prose div.item-list ul,
-.prose div.item-list li {
+.prose .links,
+.prose .links li,
+.prose .item-list ul,
+.prose .item-list li {
   margin:0px;
   padding:0px;
   list-style:none;
