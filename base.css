@@ -21,6 +21,13 @@
 ul.links li,
 ul.links li a { float:left; }
 
+ul.links.inline,
+ul.links.inline li,
+ul.links.inline li a {
+  float:none;
+  display:inline;
+  }
+
 /**
  * Prose ==============================================================
  *
