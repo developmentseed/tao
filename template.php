@@ -33,6 +33,13 @@ function tao_theme() {
     'path' => drupal_get_path('theme', 'tao') .'/templates',
   );
 
+  // Use a template for form elements
+  $items['form_element'] = array(
+    'arguments' => array('element' => array(), 'value' => NULL),
+    'template' => 'form-item',
+    'path' => drupal_get_path('theme', 'tao') .'/templates',
+  );
+
   // Print friendly page headers.
   $items['print_header'] = array(
     'arguments' => array(),
@@ -261,6 +268,36 @@ function tao_preprocess_fieldset(&$vars) {
 }
 
 /**
+ * Implementation of preprocess_form_element().
+ * Take a more sensitive/delineative approach toward theming form elements.
+ */
+function tao_preprocess_form_element(&$vars) {
+  $element = $vars['element'];
+
+  // Main item attributes.
+  $vars['attr'] = array();
+  $vars['attr']['class'] = 'form-item';
+  $vars['attr']['id'] = !empty($element['#id']) ? "{$element['#id']}-wrapper" : NULL;
+  if (!empty($element['#type']) && in_array($element['#type'], array('checkbox', 'radio'))) {
+    $vars['attr']['class'] .= ' form-option';
+  }
+  $vars['description'] = $element['#description'];
+
+  // Generate label markup
+  if (!empty($element['#title'])) {
+    $t = get_t();
+    $required_title = $t('This field is required.');
+    $required = !empty($element['#required']) ? "<span class='form-required' title='{$required_title}'>*</span>" : '';
+    $vars['label_title'] = $t('!title: !required', array('!title' => filter_xss_admin($element['#title']), '!required' => $required));
+    $vars['label_attr'] = array();
+    $vars['label_attr']['for'] = !empty($element['#id']) ? $element['#id'] : '';
+
+    // Indicate that this form item is labeled
+    $vars['attr']['class'] .= ' form-item-labeled';
+  }
+}
+
+/**
  * Preprocessor for theme_print_header().
  */
 function tao_preprocess_print_header(&$vars) {
@@ -296,59 +333,6 @@ function tao_menu_local_tasks($type = '') {
     default:
       return $primary . $secondary;
   }
-}
-
-/**
- * Override of theme_form_element().
- * Take a more sensitive/delineative approach toward theming form elements.
- */
-function tao_form_element($element, $value) {
-  $output = '';
-
-  // This is also used in the installer, pre-database setup.
-  $t = get_t();
-
-  // Add a wrapper id
-  $attr = array('class' => '');
-  $attr['id'] = !empty($element['#id']) ? "{$element['#id']}-wrapper" : NULL;
-
-  // Type logic
-  $label_attr = array();
-  $label_attr['for'] = !empty($element['#id']) ? $element['#id'] : '';
-
-  if (!empty($element['#type']) && in_array($element['#type'], array('checkbox', 'radio'))) {
-    $label_type = 'label';
-    $attr['class'] .= ' form-item form-option';
-  }
-  else {
-    $label_type = 'label';
-    $attr['class'] .= ' form-item';
-  }
-
-  // Generate required markup
-  $required_title = $t('This field is required.');
-  $required = !empty($element['#required']) ? "<span class='form-required' title='{$required_title}'>*</span>" : '';
-
-  // Generate label markup
-  if (!empty($element['#title'])) {
-    $title = $t('!title: !required', array('!title' => filter_xss_admin($element['#title']), '!required' => $required));
-    $label_attr = drupal_attributes($label_attr);
-    $output .= "<{$label_type} {$label_attr}>{$title}</{$label_type}>";
-    $attr['class'] .= ' form-item-labeled';
-  }
-
-  // Add child values
-  $output .= "$value";
-
-  // Description markup
-  $output .= !empty($element['#description']) ? "<div class='description'>{$element['#description']}</div>" : '';
-
-  // Render the whole thing
-  $attr = drupal_attributes($attr);
-  $output = "<div {$attr}>{$output}</div>";
-
-  return $output;
-
 }
 
 /**
