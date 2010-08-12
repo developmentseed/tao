@@ -47,7 +47,14 @@ function tao_theme() {
     'path' => drupal_get_path('theme', 'tao') .'/templates',
   );
 
-  $items['pager_list'] = array('arguments' => array());
+  // Split out pager list into separate theme function.
+  $items['pager_list'] = array('arguments' => array(
+    'tags' => array(),
+    'limit' => 10,
+    'element' => 0,
+    'parameters' => array(),
+    'quantity' => 9,
+  ));
 
   return $items;
 }
