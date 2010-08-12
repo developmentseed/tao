@@ -281,7 +281,7 @@ function tao_preprocess_form_element(&$vars) {
   if (!empty($element['#type']) && in_array($element['#type'], array('checkbox', 'radio'))) {
     $vars['attr']['class'] .= ' form-option';
   }
-  $vars['description'] = $element['#description'];
+  $vars['description'] = isset($element['#description']) ? $element['#description'] : '';
 
   // Generate label markup
   if (!empty($element['#title'])) {
