@@ -47,7 +47,7 @@ function tao_theme() {
     'path' => drupal_get_path('theme', 'tao') .'/templates',
   );
 
-  $items['pager_list'] = array();
+  $items['pager_list'] = array('arguments' => array());
 
   return $items;
 }
