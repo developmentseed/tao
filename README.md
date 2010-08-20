@@ -35,9 +35,9 @@ to expect:
 - `theme('fieldset')`
 
   The `fieldset` element in core has been retained but with additional markup
-for simpler theming. The `legend` element contains a sub-element `h2` that can
-be positioned properly across browsers and the main contents of the fieldset
-follow other object templates with a `.fieldset-content` div.
+for simpler theming. The `legend` element contains a sub-element `span` that
+can be positioned properly across browsers and the main contents of the
+fieldset follow other object templates with a `.fieldset-content` div.
 
 - `theme('form_element')`
 
