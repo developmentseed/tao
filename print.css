@@ -106,7 +106,7 @@ div.print-header {
 /**
  * NODE ===============================================================
  */
-h2.node-title {
+.node-title {
   line-height:20pt;
   font-size:18pt;
   letter-spacing:-0.5pt;
@@ -114,7 +114,7 @@ h2.node-title {
   margin: 0pt 0pt 10pt;
   }
 
-  h2.node-title a { text-decoration:none; }
+  .node-title a { text-decoration:none; }
 
 div.node-submitted,
 div.comment-submitted {
@@ -140,7 +140,7 @@ h6.comments-title {
   font-family: Arial, sans-serif;
   }
 
-h2.comment-title {
+.comment-title {
   font-size:13pt;
   font-weight:normal;
   }

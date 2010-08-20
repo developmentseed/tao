@@ -125,14 +125,14 @@ input.form-submit { cursor:pointer; }
 input.form-radio,
 input.form-checkbox { vertical-align:middle; }
 
-div.form-item div.description,
-div.description {
+.form-item .description,
+.description {
   color:#666;
   font-size:11px;
   }
 
-fieldset.collapsible h2.fieldset-title { cursor:pointer; }
-html.js fieldset.collapsed div.fieldset-content { display:none; }
+fieldset.collapsible .fieldset-title { cursor:pointer; }
+html.js fieldset.collapsed .fieldset-content { display:none; }
 
 /**
  * Views ==============================================================

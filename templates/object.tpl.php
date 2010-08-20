@@ -4,10 +4,10 @@
 
 <div <?php if (!empty($attr)) print drupal_attributes($attr) ?>>
   <?php if (!empty($title)): ?>
-    <h2 class='<?php print $hook ?>-title'>
+    <div class='<?php print $hook ?>-title'>
       <?php if (!empty($new)): ?><a id='new' class='new'><?php print('New') ?></a><?php endif; ?>
       <?php print $title ?>
-    </h2>
+    </div>
   <?php endif; ?>
 
   <?php if (!empty($submitted)): ?>

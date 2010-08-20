@@ -45,7 +45,7 @@
     <div id='main' class='clear-block'>
         <?php if ($breadcrumb) print $breadcrumb; ?>
         <?php if ($mission): print '<div id="mission">'. $mission .'</div>'; endif; ?>
-        <?php if ($title): ?><h2 class='page-title'><?php print $title ?></h2><?php endif; ?>
+        <?php if ($title): ?><h1 class='page-title'><?php print $title ?></h1><?php endif; ?>
         <?php if ($tabs) print $tabs ?>
         <?php if ($tabs2) print $tabs2 ?>
         <div id='content' class='clear-block'><?php print $content ?></div>
