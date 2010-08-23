@@ -5,6 +5,17 @@
  */
 
 /**
+ * Skip navigation ====================================================
+ *
+ * 508 compliance link for skipping navigation elements.
+ */
+#skipnav {
+  position:absolute;
+  left:-1000px;
+  top:-1000px;
+  }
+
+/**
  * Page width limiter =================================================
  *
  * Can be nested within major structural elements to allow full-width

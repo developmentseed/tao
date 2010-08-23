@@ -187,6 +187,9 @@ function tao_preprocess_page(&$vars) {
 
   // Don't render the attributes yet so subthemes can alter them
   $vars['attr'] = $attr;
+
+  // Skip navigation links (508).
+  $vars['skipnav'] = l(t('Skip navigation'), NULL, array('fragment' => 'content', 'attributes' => array('id' => 'skipnav')));
 }
 
 /**
