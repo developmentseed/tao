@@ -62,11 +62,6 @@ function tao_theme() {
     'template' => 'object',
     'path' => drupal_get_path('theme', 'tao') .'/templates',
   );
-  $items['box'] = array(
-    'arguments' => array('title' => NULL, 'content' => NULL, 'region' => 'main'),
-    'template' => 'object',
-    'path' => drupal_get_path('theme', 'tao') .'/templates',
-  );
   $items['comment'] = array(
     'arguments' => array('comment' => NULL, 'node' => NULL, 'links' => array()),
     'template' => 'object',
@@ -197,37 +192,49 @@ function tao_preprocess_page(&$vars) {
  * Implementation of preprocess_block().
  */
 function tao_preprocess_block(&$vars) {
-  // Hide blocks with no content.
-  // $vars['hide'] = empty($vars['block']->content);
+  $vars['hook'] = 'block';
 
   $vars['attributes_array']['id'] = $vars['block_html_id'];
 
-  // $attr = array();
-  // $attr['id'] = "block-{$vars['block']->module}-{$vars['block']->delta}";
-  // $attr['class'] = "block block-{$vars['block']->module}";
-  // $vars['attr'] = $attr;
+  $vars['title_attributes_array']['class'][] = 'block-title';
+  $vars['title_attributes_array']['class'][] = 'clearfix';
 
-  $vars['hook'] = 'block';
+  $vars['content_attributes_array']['class'][] = 'block-content';
+  $vars['content_attributes_array']['class'][] = 'clearfix';
+  if ($vars['block']->module == 'block') {
+    $vars['content_attributes_array']['class'][] = 'prose';
+  }
+
   $vars['title'] = !empty($vars['block']->subject) ? $vars['block']->subject : '';
-  $vars['is_prose'] = ($vars['block']->module == 'block') ? TRUE : FALSE;
 }
 
 /**
  * Implementation of preprocess_node().
  */
 function tao_preprocess_node(&$vars) {
-  $attr = array();
-  $attr['id'] = "node-{$vars['node']->nid}";
-  $attr['class'] = "node node-{$vars['node']->type}";
-  $attr['class'] .= $vars['node']->sticky ? ' sticky' : '';
-  $vars['attr'] = $attr;
-
   $vars['hook'] = 'node';
-  $vars['is_prose'] = TRUE;
 
-  // Add print customizations
+  $vars['attributes_array']['id'] = "node-{$vars['node']->nid}";
+
+  $vars['title_attributes_array']['class'][] = 'node-title';
+  $vars['title_attributes_array']['class'][] = 'clearfix';
+
+  $vars['content_attributes_array']['class'][] = 'node-content';
+  $vars['content_attributes_array']['class'][] = 'clearfix';
+  $vars['content_attributes_array']['class'][] = 'prose';
+
+  if (isset($vars['content']['links'])) {
+    $vars['links'] = $vars['content']['links'];
+    unset($vars['content']['links']);
+  }
+
+  if (isset($vars['content']['comments'])) {
+    $vars['post_object']['comments'] = $vars['content']['comments'];
+    unset($vars['content']['comments']);
+  }
+
   if (isset($_GET['print'])) {
-    $vars['post_object'] = tao_print_book_children($vars['node']);
+    $vars['post_object']['book'] = tao_print_book_children($vars['node']);
   }
 }
 
@@ -235,13 +242,18 @@ function tao_preprocess_node(&$vars) {
  * Implementation of preprocess_comment().
  */
 function tao_preprocess_comment(&$vars) {
-  $attr = array();
-  $attr['id'] = "comment-{$vars['comment']->cid}";
-  $attr['class'] = "comment {$vars['status']}";
-  $vars['attr'] = $attr;
-
   $vars['hook'] = 'comment';
-  $vars['is_prose'] = TRUE;
+
+  $vars['title_attributes_array']['class'][] = 'comment-title';
+  $vars['title_attributes_array']['class'][] = 'clearfix';
+
+  $vars['content_attributes_array']['class'][] = 'comment-content';
+  $vars['content_attributes_array']['class'][] = 'clearfix';
+
+  if (isset($vars['content']['links'])) {
+    $vars['links'] = $vars['content']['links'];
+    unset($vars['content']['links']);
+  }
 }
 
 /**
