@@ -16,7 +16,7 @@
 
   <?php if (!empty($content)): ?>
     <div class='<?php print $hook ?>-content clear-block <?php if (!empty($is_prose)) print 'prose' ?>'>
-      <?php print $content ?>
+      <?php print render($content) ?>
     </div>
   <?php endif; ?>
 

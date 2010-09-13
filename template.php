@@ -1,6 +1,56 @@
 <?php
 
 /**
+ * Implements hook_css_alter().
+ * @TODO: Once http://drupal.org/node/901062 is resolved, determine whether
+ * this can be implemented in the .info file instead.
+ *
+ * Omitted:
+ * - color.css
+ * - contextual.css
+ * - dashboard.css
+ * - field_ui.css
+ * - image.css
+ * - locale.css
+ * - shortcut.css
+ * - toolbar.css
+ */
+function tao_css_alter(&$css) {
+  $exclude = array(
+    'modules/aggregator/aggregator.css' => FALSE,
+    'modules/block/block.css' => FALSE,
+    'modules/book/book.css' => FALSE,
+    'modules/comment/comment.css' => FALSE,
+    'modules/dblog/dblog.css' => FALSE,
+    'modules/file/file.css' => FALSE,
+    'modules/filter/filter.css' => FALSE,
+    'modules/forum/forum.css' => FALSE,
+    'modules/help/help.css' => FALSE,
+    'modules/menu/menu.css' => FALSE,
+    'modules/node/node.css' => FALSE,
+    'modules/openid/openid.css' => FALSE,
+    'modules/poll/poll.css' => FALSE,
+    'modules/profile/profile.css' => FALSE,
+    'modules/search/search.css' => FALSE,
+    'modules/shortcut/shortcut.css' => FALSE,
+    'modules/simpletest/simpletest.css' => FALSE,
+    'modules/statistics/statistics.css' => FALSE,
+    'modules/syslog/syslog.css' => FALSE,
+    'modules/system/admin.css' => FALSE,
+    'modules/system/maintenance.css' => FALSE,
+    'modules/system/system.css' => FALSE,
+    'modules/system/system-behavior.css' => FALSE,
+    'modules/system/system-menus.css' => FALSE,
+    'modules/system/system-messages.css' => FALSE,
+    'modules/taxonomy/taxonomy.css' => FALSE,
+    'modules/tracker/tracker.css' => FALSE,
+    'modules/update/update.css' => FALSE,
+    'modules/user/user.css' => FALSE,
+  );
+  $css = array_diff_key($css, $exclude);
+}
+
+/**
  * Implementation of hook_theme().
  */
 function tao_theme() {
@@ -33,13 +83,6 @@ function tao_theme() {
     'path' => drupal_get_path('theme', 'tao') .'/templates',
   );
 
-  // Use a template for form elements
-  $items['form_element'] = array(
-    'arguments' => array('element' => array(), 'value' => NULL),
-    'template' => 'form-item',
-    'path' => drupal_get_path('theme', 'tao') .'/templates',
-  );
-
   // Print friendly page headers.
   $items['print_header'] = array(
     'arguments' => array(),
@@ -57,41 +100,6 @@ function tao_theme() {
   ));
 
   return $items;
-}
-
-/**
- * DEPRECATED. CSS exclusion is better handled with positive (yet omitted)
- * entries in your .info file.
- *
- * Strips CSS files from a Drupal CSS array whose filenames start with
- * prefixes provided in the $match argument.
- */
-function tao_css_stripped($match = array('modules/*'), $exceptions = NULL) {
-  // Set default exceptions
-  if (!is_array($exceptions)) {
-    $exceptions = array(
-      'modules/color/color.css',
-      'modules/locale/locale.css',
-      'modules/system/system.css',
-      'modules/update/update.css',
-      'modules/openid/openid.css',
-      'modules/acquia/*',
-    );
-  }
-  $css = drupal_add_css();
-  $match = implode("\n", $match);
-  $exceptions = implode("\n", $exceptions);
-  foreach (array_keys($css['all']['module']) as $filename) {
-    if (drupal_match_path($filename, $match) && !drupal_match_path($filename, $exceptions)) {
-      unset($css['all']['module'][$filename]);
-    }
-  }
-
-  // This servers to move the "all" CSS key to the front of the stack.
-  // Mainly useful because modules register their CSS as 'all', while
-  // Tao has a more media handling.
-  ksort($css);
-  return $css;
 }
 
 /**
@@ -147,15 +155,14 @@ function _tao_print_book_children($link, &$content, &$zomglimit, $limit = 500) {
 /**
  * Preprocess functions ===============================================
  */
+function tao_preprocess_html(&$vars) {
+  $vars['classes_array'][] = 'tao';
+}
 
 /**
  * Implementation of preprocess_page().
  */
 function tao_preprocess_page(&$vars) {
-  $attr = array();
-  $attr['class'] = $vars['body_classes'];
-  $attr['class'] .= ' tao'; // Add the tao class so that we can avoid using the 'body' selector
-
   // Replace screen/all stylesheets with print
   // We want a minimal print representation here for full control.
   if (isset($_GET['print'])) {
@@ -179,17 +186,11 @@ function tao_preprocess_page(&$vars) {
   }
 
   // Split primary and secondary local tasks
-  $vars['tabs'] = theme('menu_local_tasks', 'primary');
-  $vars['tabs2'] = theme('menu_local_tasks', 'secondary');
+  $vars['primary_local_tasks'] = menu_primary_local_tasks();
+  $vars['secondary_local_tasks'] = menu_secondary_local_tasks();
 
   // Link site name to frontpage
   $vars['site_name'] = l($vars['site_name'], '<front>');
-
-  // Don't render the attributes yet so subthemes can alter them
-  $vars['attr'] = $attr;
-
-  // Skip navigation links (508).
-  $vars['skipnav'] = l(t('Skip navigation'), NULL, array('fragment' => 'content', 'attributes' => array('id' => 'skipnav')));
 }
 
 /**
@@ -197,27 +198,18 @@ function tao_preprocess_page(&$vars) {
  */
 function tao_preprocess_block(&$vars) {
   // Hide blocks with no content.
-  $vars['hide'] = empty($vars['block']->content);
+  // $vars['hide'] = empty($vars['block']->content);
 
-  $attr = array();
-  $attr['id'] = "block-{$vars['block']->module}-{$vars['block']->delta}";
-  $attr['class'] = "block block-{$vars['block']->module}";
-  $vars['attr'] = $attr;
+  $vars['attributes_array']['id'] = $vars['block_html_id'];
+
+  // $attr = array();
+  // $attr['id'] = "block-{$vars['block']->module}-{$vars['block']->delta}";
+  // $attr['class'] = "block block-{$vars['block']->module}";
+  // $vars['attr'] = $attr;
 
   $vars['hook'] = 'block';
   $vars['title'] = !empty($vars['block']->subject) ? $vars['block']->subject : '';
-  $vars['content'] = $vars['block']->content;
   $vars['is_prose'] = ($vars['block']->module == 'block') ? TRUE : FALSE;
-}
-
-/**
- * Implementation of preprocess_box().
- */
-function tao_preprocess_box(&$vars) {
-  $attr = array();
-  $attr['class'] = "box";
-  $vars['attr'] = $attr;
-  $vars['hook'] = 'box';
 }
 
 /**
@@ -257,54 +249,14 @@ function tao_preprocess_comment(&$vars) {
  */
 function tao_preprocess_fieldset(&$vars) {
   $element = $vars['element'];
-
-  $attr = isset($element['#attributes']) ? $element['#attributes'] : array();
-  $attr['class'] = !empty($attr['class']) ? $attr['class'] : '';
-  $attr['class'] .= ' fieldset';
-  $attr['class'] .= !empty($element['#title']) ? ' titled' : '';
-  $attr['class'] .= !empty($element['#collapsible']) ? ' collapsible' : '';
-  $attr['class'] .= !empty($element['#collapsible']) && !empty($element['#collapsed']) ? ' collapsed' : '';
-  $vars['attr'] = $attr;
+  $vars['attributes'] = $element['#attributes'];
 
   $description = !empty($element['#description']) ? "<div class='description'>{$element['#description']}</div>" : '';
   $children = !empty($element['#children']) ? $element['#children'] : '';
   $value = !empty($element['#value']) ? $element['#value'] : '';
   $vars['content'] = $description . $children . $value;
   $vars['title'] = !empty($element['#title']) ? $element['#title'] : '';
-  if (!empty($element['#collapsible'])) {
-    $vars['title'] = l(filter_xss_admin($vars['title']), $_GET['q'], array('fragment' => 'fieldset', 'html' => TRUE));
-  }
   $vars['hook'] = 'fieldset';
-}
-
-/**
- * Implementation of preprocess_form_element().
- * Take a more sensitive/delineative approach toward theming form elements.
- */
-function tao_preprocess_form_element(&$vars) {
-  $element = $vars['element'];
-
-  // Main item attributes.
-  $vars['attr'] = array();
-  $vars['attr']['class'] = 'form-item';
-  $vars['attr']['id'] = !empty($element['#id']) ? "{$element['#id']}-wrapper" : NULL;
-  if (!empty($element['#type']) && in_array($element['#type'], array('checkbox', 'radio'))) {
-    $vars['attr']['class'] .= ' form-option';
-  }
-  $vars['description'] = isset($element['#description']) ? $element['#description'] : '';
-
-  // Generate label markup
-  if (!empty($element['#title'])) {
-    $t = get_t();
-    $required_title = $t('This field is required.');
-    $required = !empty($element['#required']) ? "<span class='form-required' title='{$required_title}'>*</span>" : '';
-    $vars['label_title'] = $t('!title: !required', array('!title' => filter_xss_admin($element['#title']), '!required' => $required));
-    $vars['label_attr'] = array();
-    $vars['label_attr']['for'] = !empty($element['#id']) ? $element['#id'] : '';
-
-    // Indicate that this form item is labeled
-    $vars['attr']['class'] .= ' form-item-labeled';
-  }
 }
 
 /**
@@ -343,16 +295,6 @@ function tao_menu_local_tasks($type = '') {
     default:
       return $primary . $secondary;
   }
-}
-
-/**
- * Override of theme_file().
- * Reduces the size of upload fields which are by default far too long.
- */
-function tao_file($element) {
-  _form_set_class($element, array('form-file'));
-  $attr = $element['#attributes'] ? ' '. drupal_attributes($element['#attributes']) : '';
-  return theme('form_element', $element, "<input type='file' name='{$element['#name']}' id='{$element['#id']}' size='15' {$attr} />");
 }
 
 /**
@@ -402,17 +344,41 @@ function tao_username($object) {
  * ensure the markup will not conflict with major other styles
  * (theme_item_list() in particular).
  */
-function tao_pager($tags = array(), $limit = 10, $element = 0, $parameters = array(), $quantity = 9) {
-  $pager_list = theme('pager_list', $tags, $limit, $element, $parameters, $quantity);
+function tao_pager($vars) {
+  $tags = $vars['tags'];
+  $element = $vars['element'];
+  $parameters = $vars['parameters'];
+  $quantity = $vars['quantity'];
+  $pager_list = theme('pager_list', $vars);
 
   $links = array();
-  $links['pager-first'] = theme('pager_first', ($tags[0] ? $tags[0] : t('First')), $limit, $element, $parameters);
-  $links['pager-previous'] = theme('pager_previous', ($tags[1] ? $tags[1] : t('Prev')), $limit, $element, 1, $parameters);
-  $links['pager-next'] = theme('pager_next', ($tags[3] ? $tags[3] : t('Next')), $limit, $element, 1, $parameters);
-  $links['pager-last'] = theme('pager_last', ($tags[4] ? $tags[4] : t('Last')), $limit, $element, $parameters);
+  $links['pager-first'] = theme('pager_first', array(
+    'text' => (isset($tags[0]) ? $tags[0] : t('First')),
+    'element' => $element,
+    'parameters' => $parameters
+  ));
+  $links['pager-previous'] = theme('pager_previous', array(
+    'text' => (isset($tags[1]) ? $tags[1] : t('Prev')),
+    'element' => $element,
+    'interval' => 1,
+    'parameters' => $parameters
+  ));
+  $links['pager-next'] = theme('pager_next', array(
+    'text' => (isset($tags[3]) ? $tags[3] : t('Next')),
+    'element' => $element,
+    'interval' => 1,
+    'parameters' => $parameters
+  ));
+  $links['pager-last'] = theme('pager_last', array(
+    'text' => (isset($tags[4]) ? $tags[4] : t('Last')),
+    'element' => $element,
+    'parameters' => $parameters
+  ));
   $links = array_filter($links);
-  $pager_links = theme('links', $links, array('class' => 'links pager pager-links'));
-
+  $pager_links = theme('links', array(
+    'links' => $links,
+    'attributes' => array('class' => 'links pager pager-links')
+  ));
   if ($pager_list) {
     return "<div class='pager clear-block'>$pager_list $pager_links</div>";
   }
@@ -421,8 +387,13 @@ function tao_pager($tags = array(), $limit = 10, $element = 0, $parameters = arr
 /**
  * Split out page list generation into its own function.
  */
-function tao_pager_list($tags = array(), $limit = 10, $element = 0, $parameters = array(), $quantity = 9) {
-  global $pager_page_array, $pager_total, $theme_key;
+function tao_pager_list($vars) {
+  $tags = $vars['tags'];
+  $element = $vars['element'];
+  $parameters = $vars['parameters'];
+  $quantity = $vars['quantity'];
+
+  global $pager_page_array, $pager_total;
   if ($pager_total[$element] > 1) {
     // Calculate various markers within this pager piece:
     // Middle is used to "center" pages around the current page.
@@ -458,16 +429,29 @@ function tao_pager_list($tags = array(), $limit = 10, $element = 0, $parameters 
       // Now generate the actual pager piece.
       for ($i; $i <= $pager_last && $i <= $pager_max; $i++) {
         if ($i < $pager_current) {
-          $links["$i pager-item"] = theme('pager_previous', $i, $limit, $element, ($pager_current - $i), $parameters);
+          $links["$i pager-item"] = theme('pager_previous', array(
+            'text' => $i,
+            'element' => $element,
+            'interval' => ($pager_current - $i),
+            'parameters' => $parameters
+          ));
         }
         if ($i == $pager_current) {
           $links["$i pager-current"] = array('title' => $i);
         }
         if ($i > $pager_current) {
-          $links["$i pager-item"] = theme('pager_next', $i, $limit, $element, ($i - $pager_current), $parameters);
+          $links["$i pager-item"] = theme('pager_next', array(
+            'text' => $i,
+            'element' => $element,
+            'interval' => ($i - $pager_current),
+            'parameters' => $parameters
+          ));
         }
       }
-      return theme('links', $links, array('class' => 'links pager pager-list'));
+      return theme('links', array(
+        'links' => $links,
+        'attributes' => array('class' => 'links pager pager-list')
+      ));
     }
   }
   return '';
@@ -476,7 +460,13 @@ function tao_pager_list($tags = array(), $limit = 10, $element = 0, $parameters 
 /**
  * Return an array suitable for theme_links() rather than marked up HTML link.
  */
-function tao_pager_link($text, $page_new, $element, $parameters = array(), $attributes = array()) {
+function tao_pager_link($vars) {
+  $text = $vars['text'];
+  $page_new = $vars['page_new'];
+  $element = $vars['element'];
+  $parameters = $vars['parameters'];
+  $attributes = $vars['attributes'];
+
   $page = isset($_GET['page']) ? $_GET['page'] : '';
   if ($new_page = implode(',', pager_load_array($page_new[$element], $element, explode(',', $page)))) {
     $parameters['page'] = $new_page;
@@ -484,11 +474,10 @@ function tao_pager_link($text, $page_new, $element, $parameters = array(), $attr
 
   $query = array();
   if (count($parameters)) {
-    $query[] = drupal_query_string_encode($parameters, array());
+    $query = drupal_get_query_parameters($parameters, array());
   }
-  $querystring = pager_get_querystring();
-  if ($querystring != '') {
-    $query[] = $querystring;
+  if ($query_pager = pager_get_query_parameters()) {
+    $query = array_merge($query, $query_pager);
   }
 
   // Set each pager link title
