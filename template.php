@@ -272,6 +272,10 @@ function tao_preprocess_comment(&$vars) {
 function tao_preprocess_fieldset(&$vars) {
   $element = $vars['element'];
   $vars['attributes'] = $element['#attributes'];
+  $vars['attributes']['class'][] = 'fieldset';
+  if (!empty($element['#title'])) {
+    $vars['attributes']['class'][] = 'titled';
+  }
 
   $description = !empty($element['#description']) ? "<div class='description'>{$element['#description']}</div>" : '';
   $children = !empty($element['#children']) ? $element['#children'] : '';
