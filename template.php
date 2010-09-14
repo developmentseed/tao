@@ -233,6 +233,11 @@ function tao_preprocess_node(&$vars) {
     unset($vars['content']['comments']);
   }
 
+  $vars['submitted'] = t('Submitted by !username on !datetime', array(
+    '!username' => $vars['name'],
+    '!datetime' => $vars['date'],
+  ));
+
   if (isset($_GET['print'])) {
     $vars['post_object']['book'] = tao_print_book_children($vars['node']);
   }
@@ -249,6 +254,11 @@ function tao_preprocess_comment(&$vars) {
 
   $vars['content_attributes_array']['class'][] = 'comment-content';
   $vars['content_attributes_array']['class'][] = 'clearfix';
+
+  $vars['submitted'] = t('Submitted by !username on !datetime', array(
+    '!username' => $vars['author'],
+    '!datetime' => $vars['created'],
+  ));
 
   if (isset($vars['content']['links'])) {
     $vars['links'] = $vars['content']['links'];
@@ -286,68 +296,6 @@ function tao_preprocess_print_header(&$vars) {
 /**
  * Function overrides =================================================
  */
-
-/**
- * Override of theme_menu_local_tasks().
- * Add argument to allow primary/secondary local tasks to be printed
- * separately. Use theme_links() markup to consolidate.
- */
-function tao_menu_local_tasks($type = '') {
-  if ($primary = menu_primary_local_tasks()) {
-    $primary = "<ul class='links primary-tabs'>{$primary}</ul>";
-  }
-  if ($secondary = menu_secondary_local_tasks()) {
-    $secondary = "<ul class='links secondary-tabs'>$secondary</ul>";
-  }
-  switch ($type) {
-    case 'primary':
-      return $primary;
-    case 'secondary':
-      return $secondary;
-    default:
-      return $primary . $secondary;
-  }
-}
-
-/**
- * Override of theme_blocks().
- * Allows additional theme functions to be defined per region to
- * control block display on a per-region basis. Falls back to default
- * block region handling if no region-specific overrides are found.
- */
-function tao_blocks($region) {
-  // Allow theme functions some additional control over regions.
-  $registry = theme_get_registry();
-  if (isset($registry['blocks_'. $region])) {
-    return theme('blocks_'. $region);
-  }
-  return module_exists('context') && function_exists('context_blocks') ? context_blocks($region) : theme_blocks($region);
-}
-
-/**
- * Override of theme_username().
- */
-function tao_username($object) {
-  if (!empty($object->name)) {
-    // Shorten the name when it is too long or it will break many tables.
-    $name = drupal_strlen($object->name) > 20 ? drupal_substr($object->name, 0, 15) .'...' : $object->name;
-    $name = check_plain($name);
-
-    // Default case -- we have a real Drupal user here.
-    if ($object->uid && user_access('access user profiles')) {
-      return l($name, 'user/'. $object->uid, array('attributes' => array('class' => 'username', 'title' => t('View user profile.'))));
-    }
-    // Handle cases where user is not registered but has a link or name available.
-    else if (!empty($object->homepage)) {
-      return l($name, $object->homepage, array('attributes' => array('class' => 'username', 'rel' => 'nofollow')));
-    }
-    // Produce an unlinked username.
-    else {
-      return "<span class='username'>{$name}</span>";
-    }
-  }
-  return "<span class='username'>". variable_get('anonymous', t('Anonymous')) ."</span>";
-}
 
 /**
  * Override of theme_pager().
