@@ -198,22 +198,15 @@ html.js input.throbbing { background:transparent url(drupal/throbber.gif) 100% 5
 /**
  * Resizable text areas
  */
-.resizable-textarea { width:95%; }
-
-.resizable-textarea .grippie {
-  height:9px;
-  overflow:hidden;
-  background:#eee;
-  border:1px solid #ddd;
-  border-top:0px;
-  cursor:s-resize;
+.form-textarea-wrapper textarea {
+  width: 100%;
+  display: block;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
   }
 
-html.js .resizable-textarea textarea {
-  margin-bottom:0px;
-  width:100%;
-  display:block;
-  }
+.resizable textarea { resize:vertical; }
 
 /**
  * Table drag and drop.

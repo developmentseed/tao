@@ -35,6 +35,7 @@
     <?php if ($title): ?><h1 class='page-title'><?php print $title ?></h1><?php endif; ?>
     <?php if ($primary_local_tasks): ?><ul class='links clearfix'><?php print render($primary_local_tasks) ?></ul><?php endif; ?>
     <?php if ($secondary_local_tasks): ?><ul class='links clearfix'><?php print render($secondary_local_tasks) ?></ul><?php endif; ?>
+    <?php if ($action_links): ?><ul class='links clearfix'><?php print render($action_links); ?></ul><?php endif; ?>
     <div id='content' class='clearfix'><?php print render($page['content']) ?></div>
   </div>
 
