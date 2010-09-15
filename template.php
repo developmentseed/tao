@@ -18,6 +18,7 @@
  */
 function tao_css_alter(&$css) {
   $exclude = array(
+    'misc/vertical-tabs.css' => FALSE,
     'modules/aggregator/aggregator.css' => FALSE,
     'modules/block/block.css' => FALSE,
     'modules/book/book.css' => FALSE,

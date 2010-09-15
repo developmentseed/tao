@@ -372,3 +372,26 @@ html.js .js-hide { display:none; }
  */
 #permissions td.module { font-weight: bold; }
 #permissions td.permission { padding-left:20px; }
+
+/**
+ * misc/vertical-tabs.css =============================================
+ */
+.vertical-tabs {
+  padding-left:200px;
+  margin:0px 0px 10px;
+  }
+
+.vertical-tabs .vertical-tabs-list {
+  float:left;
+  width:200px;
+  margin-left:-200px;
+  }
+
+.vertical-tabs .vertical-tabs-panes .vertical-tabs-pane {
+  margin:0px;
+  padding:0px;
+  border:0px;
+  }
+
+.vertical-tabs .vertical-tabs-panes .vertical-tabs-pane legend { display:none; }
+.vertical-tabs .vertical-tabs-list .summary { display:block; }
