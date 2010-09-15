@@ -376,10 +376,7 @@ html.js .js-hide { display:none; }
 /**
  * misc/vertical-tabs.css =============================================
  */
-.vertical-tabs {
-  padding-left:200px;
-  margin:0px 0px 10px;
-  }
+.vertical-tabs { padding-left:200px; }
 
 .vertical-tabs .vertical-tabs-list {
   float:left;
