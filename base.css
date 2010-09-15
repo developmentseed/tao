@@ -6,13 +6,28 @@
 
 /**
  * Skip navigation ====================================================
- *
- * 508 compliance link for skipping navigation elements.
  */
-#skipnav {
+#skip-link {
   position:absolute;
-  left:-1000px;
-  top:-1000px;
+  display:block;
+  }
+
+#skip-link a,
+#skip-link a:link,
+#skip-link a:visited {
+  position:absolute;
+  display:block;
+  left:-10000px;
+  width:1px;
+  height:1px;
+  }
+
+#skip-link a:hover,
+#skip-link a:active,
+#skip-link a:focus {
+  position:static;
+  width:auto;
+  height:auto;
   }
 
 /**
