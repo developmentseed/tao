@@ -78,13 +78,6 @@ function tao_theme() {
     'path' => drupal_get_path('theme', 'tao') .'/templates',
   );
 
-  // Print friendly page headers.
-  $items['print_header'] = array(
-    'arguments' => array(),
-    'template' => 'print-header',
-    'path' => drupal_get_path('theme', 'tao') .'/templates',
-  );
-
   // Split out pager list into separate theme function.
   $items['pager_list'] = array('arguments' => array(
     'tags' => array(),
@@ -98,56 +91,6 @@ function tao_theme() {
 }
 
 /**
- * Print all child pages of a book.
- */
-function tao_print_book_children($node) {
-  // We use a semaphore here since this function calls and is called by the
-  // node_view() stack so that it may be called multiple times for a single book tree.
-  static $semaphore;
-
-  if (module_exists('book') && book_type_is_allowed($node->type)) {
-    if (isset($_GET['print']) && isset($_GET['book_recurse']) && !isset($semaphore)) {
-      $semaphore = TRUE;
-
-      $child_pages = '';
-      $zomglimit = 0;
-      $tree = array_shift(book_menu_subtree_data($node->book));
-      if (!empty($tree['below'])) {
-        foreach ($tree['below'] as $link) {
-          _tao_print_book_children($link, $child_pages, $zomglimit);
-        }
-      }
-
-      unset($semaphore);
-
-      return $child_pages;
-    }
-  }
-
-  return '';
-}
-
-/**
- * Book printing recursion.
- */
-function _tao_print_book_children($link, &$content, &$zomglimit, $limit = 500) {
-  if ($zomglimit < $limit) {
-    $zomglimit++;
-    if (!empty($link['link']['nid'])) {
-      $node = node_load($link['link']['nid']);
-      if ($node) {
-        $content .= node_view($node);
-      }
-      if (!empty($link['below'])) {
-        foreach ($link['below'] as $child) {
-          _tao_print_book_children($child, $content);
-        }
-      }
-    }
-  }
-}
-
-/**
  * Preprocess functions ===============================================
  */
 function tao_preprocess_html(&$vars) {
@@ -158,28 +101,7 @@ function tao_preprocess_html(&$vars) {
  * Implementation of preprocess_page().
  */
 function tao_preprocess_page(&$vars) {
-  // Replace screen/all stylesheets with print
-  // We want a minimal print representation here for full control.
-  if (isset($_GET['print'])) {
-    $css = drupal_add_css();
-    unset($css['all']);
-    unset($css['screen']);
-    $css['all'] = $css['print'];
-    $vars['styles'] = drupal_get_css($css);
-
-    // Add print header
-    $vars['print_header'] = theme('print_header');
-
-    // Replace all body classes
-    $attr['class'] = 'print';
-
-    // Use print template
-    $vars['template_file'] = 'print-page';
-
-    // Suppress devel output
-    $GLOBALS['devel_shutdown'] = FALSE;
-  }
-
+  dsm($vars);
   // Split primary and secondary local tasks
   $vars['primary_local_tasks'] = menu_primary_local_tasks();
   $vars['secondary_local_tasks'] = menu_secondary_local_tasks();
@@ -237,10 +159,6 @@ function tao_preprocess_node(&$vars) {
     '!username' => $vars['name'],
     '!datetime' => $vars['date'],
   ));
-
-  if (isset($_GET['print'])) {
-    $vars['post_object']['book'] = tao_print_book_children($vars['node']);
-  }
 }
 
 /**
@@ -283,18 +201,6 @@ function tao_preprocess_fieldset(&$vars) {
   $vars['content'] = $description . $children . $value;
   $vars['title'] = !empty($element['#title']) ? $element['#title'] : '';
   $vars['hook'] = 'fieldset';
-}
-
-/**
- * Preprocessor for theme_print_header().
- */
-function tao_preprocess_print_header(&$vars) {
-  $vars = array(
-    'base_path' => base_path(),
-    'theme_path' => base_path() .'/'. path_to_theme(),
-    'site_name' => variable_get('site_name', 'Drupal'),
-  );
-  $count ++;
 }
 
 /**
@@ -344,7 +250,7 @@ function tao_pager($vars) {
     'attributes' => array('class' => 'links pager pager-links')
   ));
   if ($pager_list) {
-    return "<div class='pager clear-block'>$pager_list $pager_links</div>";
+    return "<div class='pager clearfix'>$pager_list $pager_links</div>";
   }
 }
 

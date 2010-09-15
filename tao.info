@@ -1,19 +1,22 @@
-core = "7.x"
-description = "Tao is a base theme that is all about going with the flow. It takes care of key reset and utility tasks so that sub-themes can get on with their job."
-engine = "phptemplate"
-name = "Tao"
-regions[sidebar_first] = "Sidebar first"
-regions[sidebar_second] = "Sidebar second"
-regions[content] = "Content"
-regions[header] = "Header"
-regions[help] = "Help"
-regions[footer] = "Footer"
-regions[page_top] = "Page top"
-regions[page_bottom] = "Page bottom"
-regions[highlighted] = "Highlighted"
-; scripts[] = "js/tao.js"
+core = 7.x
+description = Tao is a base theme that is all about going with the flow. It takes care of key reset and utility tasks so that sub-themes can get on with their job.
+engine = phptemplate
+name = Tao
 
-stylesheets[all][] = "reset.css"
-stylesheets[all][] = "base.css"
-stylesheets[screen][] = "drupal.css"
-stylesheets[print][] = "print.css"
+; Regions =====================================================================
+
+regions[sidebar_first] = Sidebar first
+regions[sidebar_second] = Sidebar second
+regions[content] = Content
+regions[header] = Header
+regions[help] = Help
+regions[footer] = Footer
+regions[page_top] = Page top
+regions[page_bottom] = Page bottom
+regions[highlighted] = Highlighted
+
+; Stylesheets =================================================================
+
+stylesheets[all][] = reset.css
+stylesheets[all][] = base.css
+stylesheets[screen][] = drupal.css

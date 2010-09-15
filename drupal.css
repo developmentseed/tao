@@ -29,6 +29,60 @@ html.js #user-login li.openid-link { display:block; }
 #user-login li.user-link { display:none; }
 
 /**
+ * system/system-behavior.css =========================================
+ */
+
+/**
+ * Password strength indicator
+ */
+.password-strength {
+  width:200px;
+  float:right;  /*LTR*/
+  }
+
+.password-strength-title { display:inline; }
+
+.password-strength-text {
+  float:right; /*LTR*/
+  font-weight:bold;
+  }
+
+.password-indicator {
+  background-color:#ccc;
+  height:5px;
+  width:100%;
+  }
+
+.password-indicator div {
+  height:100%;
+  width:0%;
+  background-color:#4c6;
+  }
+
+/**
+ * Password confirmation checker
+ */
+div.password-confirm { visibility: hidden; }
+
+.container-inline div,
+.container-inline label { display:inline; }
+
+.container-inline .fieldset-wrapper { display:block; }
+
+.nowrap { white-space:nowrap; }
+
+html.js .js-hide { display:none; }
+
+.element-hidden { display:none; }
+
+.element-invisible {
+  position:absolute !important;
+  clip:rect(1px 1px 1px 1px); /* IE6, IE7 */
+  clip:rect(1px, 1px, 1px, 1px);
+  }
+
+
+/**
  * system/system.css ==================================================
  */
 body.drag { cursor:move; }
@@ -281,12 +335,20 @@ html.js .js-hide { display:none; }
 #system-themes-form div.incompatible { font-weight:bold; }
 
 /**
- * Password strength indicator
+ * Markup free clearing
+ * Details: http://perishablepress.com/press/2009/12/06/new-clearfix-hack
  */
-span.password-strength,
-span.password-confirm { visibility:hidden; }
+.clearfix:after {
+  content: ".";
+  display: block;
+  height: 0;
+  clear: both;
+  visibility: hidden;
+  }
 
-div.password-description { max-width:500px; }
+* html .clearfix { height: 1%; } /* IE6 */
+
+*:first-child + html .clearfix { min-height: 1%; } /* IE7 */
 
 /**
  * update/update.css ==================================================

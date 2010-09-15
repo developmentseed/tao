@@ -1,21 +1,21 @@
 <?php if ($page['help'] || ($show_messages && $messages)): ?>
-  <div id='console'><div class='limiter clear-block'>
+  <div id='console'><div class='limiter clearfix'>
     <?php print render($page['help']); ?>
     <?php if ($show_messages && $messages): print $messages; endif; ?>
   </div></div>
 <?php endif; ?>
 
 <?php if ($page['header']): ?>
-  <div id='header'><div class='limiter clear-block'>
+  <div id='header'><div class='limiter clearfix'>
     <?php print render($page['header']); ?>
   </div></div>
 <?php endif; ?>
 
-<div id='branding'><div class='limiter clear-block'>
+<div id='branding'><div class='limiter clearfix'>
   <?php if ($site_name): ?><h1 class='site-name'><?php print $site_name ?></h1><?php endif; ?>
 </div></div>
 
-<div id='navigation'><div class='limiter clear-block'>
+<div id='navigation'><div class='limiter clearfix'>
   <?php if (isset($main_menu)) : ?>
     <?php print theme('links', $main_menu, array('class' => 'links main-menu')) ?>
   <?php endif; ?>
@@ -24,27 +24,27 @@
   <?php endif; ?>
 </div></div>
 
-<div id='page'><div class='limiter clear-block'>
+<div id='page'><div class='limiter clearfix'>
 
   <?php if ($page['sidebar_first']): ?>
-    <div id='left' class='clear-block'><?php print render($page['sidebar_first']) ?></div>
+    <div id='left' class='clearfix'><?php print render($page['sidebar_first']) ?></div>
   <?php endif; ?>
 
-  <div id='main-content' class='clear-block'>
+  <div id='main-content' class='clearfix'>
     <?php if ($breadcrumb) print $breadcrumb; ?>
     <?php if ($title): ?><h1 class='page-title'><?php print $title ?></h1><?php endif; ?>
     <?php if ($primary_local_tasks): ?><ul class='links clearfix'><?php print render($primary_local_tasks) ?></ul><?php endif; ?>
     <?php if ($secondary_local_tasks): ?><ul class='links clearfix'><?php print render($secondary_local_tasks) ?></ul><?php endif; ?>
-    <div id='content' class='clear-block'><?php print render($page['content']) ?></div>
+    <div id='content' class='clearfix'><?php print render($page['content']) ?></div>
   </div>
 
   <?php if ($page['sidebar_second']): ?>
-    <div id='right' class='clear-block'><?php print $page['sidebar_second'] ?></div>
+    <div id='right' class='clearfix'><?php print $page['sidebar_second'] ?></div>
   <?php endif; ?>
 
 </div></div>
 
-<div id="footer"><div class='limiter clear-block'>
+<div id="footer"><div class='limiter clearfix'>
   <?php print $feed_icons ?>
   <?php print render($page['footer']) ?>
 </div></div>
