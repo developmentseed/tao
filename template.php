@@ -400,7 +400,7 @@ function tao_pager_link($vars) {
     'title' => $text,
     'href' => $_GET['q'],
     'attributes' => $attributes,
-    'query' => count($query) ? implode('&', $query) : NULL,
+    'query' => count($query) ? $query : NULL,
   );
 }
 
