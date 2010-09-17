@@ -4,7 +4,7 @@
  * with an empty stylesheet to start over from scratch.
  */
 
-@media screen. print {
+@media screen, print {
 
 	/**
 	 * Skip navigation ====================================================
