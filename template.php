@@ -204,6 +204,16 @@ function tao_preprocess_fieldset(&$vars) {
 }
 
 /**
+ * Implementation of preprocess_field().
+ */
+function tao_preprocess_field(&$vars) {
+  // Add prose class to long text fields.
+  if ($vars['element']['#field_type'] === 'text_with_summary') {
+    $vars['classes_array'][] = 'prose';
+  }
+}
+
+/**
  * Function overrides =================================================
  */
 
