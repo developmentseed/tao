@@ -420,7 +420,12 @@ function tao_pager_link($vars) {
 /**
  * Override of theme_views_mini_pager().
  */
-function tao_views_mini_pager($tags = array(), $limit = 10, $element = 0, $parameters = array(), $quantity = 9) {
+function tao_views_mini_pager($vars) {
+  $tags = $vars['tags'];
+  $quantity = $vars['quantity'];
+  $element = $vars['element'];
+  $parameters = $vars['parameters'];
+
   global $pager_page_array, $pager_total;
 
   // Calculate various markers within this pager piece:
@@ -432,12 +437,26 @@ function tao_views_mini_pager($tags = array(), $limit = 10, $element = 0, $param
   $pager_max = $pager_total[$element];
   // End of marker calculations.
 
-
   $links = array();
   if ($pager_total[$element] > 1) {
-    $links['pager-previous'] = theme('pager_previous', (isset($tags[1]) ? $tags[1] : t('‹‹')), $limit, $element, 1, $parameters);
-    $links['pager-current'] = array('title' => t('@current of @max', array('@current' => $pager_current, '@max' => $pager_max)));
-    $links['pager-next'] = theme('pager_next', (isset($tags[3]) ? $tags[3] : t('››')), $limit, $element, 1, $parameters);
+    $links['pager-previous'] = theme('pager_previous', array(
+      'text' => (isset($tags[1]) ? $tags[1] : t('Prev')),
+      'element' => $element,
+      'interval' => 1,
+      'parameters' => $parameters
+    ));
+    $links['pager-current'] = array(
+      'title' => t('@current of @max', array(
+        '@current' => $pager_current,
+        '@max' => $pager_max)
+      )
+    );
+    $links['pager-next'] = theme('pager_next', array(
+      'text' => (isset($tags[3]) ? $tags[3] : t('Next')),
+      'element' => $element,
+      'interval' => 1,
+      'parameters' => $parameters
+    ));
     return theme('links', $links, array('class' => 'links pager views-mini-pager'));
   }
 }
