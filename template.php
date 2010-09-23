@@ -457,6 +457,6 @@ function tao_views_mini_pager($vars) {
       'interval' => 1,
       'parameters' => $parameters
     ));
-    return theme('links', $links, array('class' => 'links pager views-mini-pager'));
+    return theme('links', array('links' => $links, 'attributes' => array('class' => array('links', 'pager', 'views-mini-pager'))));
   }
 }
