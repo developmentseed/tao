@@ -34,7 +34,6 @@ function tao_css_alter(&$css) {
     'modules/poll/poll.css' => FALSE,
     'modules/profile/profile.css' => FALSE,
     'modules/search/search.css' => FALSE,
-    'modules/shortcut/shortcut.css' => FALSE,
     'modules/statistics/statistics.css' => FALSE,
     'modules/syslog/syslog.css' => FALSE,
     'modules/system/admin.css' => FALSE,
